@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.yogendra.socialmediamvvm.R
 import com.yogendra.socialmediamvvm.ui.users.UsersFragmentDirections
 
@@ -28,6 +29,12 @@ class ArticleFragment : Fragment() {
         articleViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
+
+
+        // add dividers between RecyclerView's row items
+        val decoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
+//        binding.list.addItemDecoration(decoration)
+
 
         val directions = ArticleFragmentDirections.actionNavigationArticleToNavigationProfile("")
         textView.setOnClickListener { v ->

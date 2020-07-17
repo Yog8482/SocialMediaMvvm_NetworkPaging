@@ -10,6 +10,8 @@
     <string name="error_connection">No connection</string>
     <string name="error">An error has been occurred</string>
     <string name="empty">No data.</string>
+    <string name="no_internet">No internet connection</string>
+    <string name="internet_ok">Internet connected</string>
     <string name="username">User name</string>
     <string name="user_designation">User Designation</string>
     <string name="last_updated">Last Updated</string>
@@ -26,4 +28,7 @@ specimen book.</string>
     <string name="profile_fullname">Full name</string>
     <string name="profile_about_ph">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</string>
     <string name="profile_photo_desc">Profile photo</string>
+
+    <string name="retry">Retry</string>
+
 </resources>

@@ -3,6 +3,7 @@ package com.yogendra.socialmediamvvm.ui.main
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -84,7 +85,10 @@ class MainActivity : AppCompatActivity(), ConnectivityStateListener {
 
     override fun onStateChange(state: NetworkState) {
         IS_INTERNET_AVAILABLE = state.hasInternet()
-        Snackbar.make(bottomNav, "Internet connectivity status:$IS_INTERNET_AVAILABLE",5)
+        if (!IS_INTERNET_AVAILABLE)
+            Toast.makeText(applicationContext, R.string.no_internet, Toast.LENGTH_LONG).show()
+        else
+            Toast.makeText(applicationContext, R.string.internet_ok, Toast.LENGTH_SHORT).show()
     }
 
     private fun NetworkState.hasInternet(): Boolean {
