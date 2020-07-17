@@ -116,7 +116,7 @@
         android:layout_marginEnd="8dp"
         android:clickable="true"
         android:text="@string/url_ph"
-        android:textColor="@color/Peterriver"
+        android:textColor="@color/color_url"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/article_title_tv"
