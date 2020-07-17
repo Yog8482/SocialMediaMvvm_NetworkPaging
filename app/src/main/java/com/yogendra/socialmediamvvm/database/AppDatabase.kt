@@ -5,10 +5,6 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import androidx.sqlite.db.SupportSQLiteDatabase
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
-
 import com.yogendra.socialmediamvvm.data.ArticleMedia
 import com.yogendra.socialmediamvvm.data.Articles
 import com.yogendra.socialmediamvvm.data.Converters
