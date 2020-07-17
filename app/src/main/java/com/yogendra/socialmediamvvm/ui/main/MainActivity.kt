@@ -11,19 +11,25 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
+import com.standalone.cooeyhealthtinder.connectivity.base.ConnectivityProvider
+import com.standalone.cooeyhealthtinder.connectivity.base.ConnectivityProvider.*
 import com.yogendra.socialmediamvvm.R
+import com.yogendra.socialmediamvvm.utils.IS_INTERNET_AVAILABLE
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ConnectivityStateListener {
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var bottomNav: BottomNavigationView
 
+    private val provider: ConnectivityProvider by lazy { ConnectivityProvider.createProvider(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        IS_INTERNET_AVAILABLE = provider.getNetworkState().hasInternet()
 
         setSupportActionBar(actMain_toolbar)
         window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
@@ -64,5 +70,24 @@ class MainActivity : AppCompatActivity() {
     private fun hideBottomNav() {
         bottomNav.visibility = View.GONE
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        provider.addListener(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        provider.removeListener(this)
+    }
+
+    override fun onStateChange(state: NetworkState) {
+        IS_INTERNET_AVAILABLE = state.hasInternet()
+        Snackbar.make(bottomNav, "Internet connectivity status:$IS_INTERNET_AVAILABLE",5)
+    }
+
+    private fun NetworkState.hasInternet(): Boolean {
+        return (this as? NetworkState.ConnectedState)?.hasInternet == true
     }
 }

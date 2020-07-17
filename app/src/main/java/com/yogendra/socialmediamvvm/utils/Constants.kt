@@ -21,3 +21,4 @@ enum class QueryState {
 }
 
 const val DATABASE_NAME = "SociaMediaMvvmDB"
+var IS_INTERNET_AVAILABLE = false
