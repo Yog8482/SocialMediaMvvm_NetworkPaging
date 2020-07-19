@@ -62,6 +62,5 @@ class ArticlesPageDataSource @Inject constructor(
     private fun postError(message: String) {
         Log.e("ArticlesPageDataSource", "An error happened: $message")
         // TODO network error handling
-//        networkState.postValue(NetworkState.FAILED)
     }
 }

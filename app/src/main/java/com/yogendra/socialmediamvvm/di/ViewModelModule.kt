@@ -2,8 +2,6 @@ package com.yogendra.socialmediamvvm.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.elifox.legocatalog.di.ViewModelFactory
-import com.elifox.legocatalog.di.ViewModelKey
 import com.yogendra.socialmediamvvm.ui.article.ArticleViewModel
 import com.yogendra.socialmediamvvm.ui.profile.ProfileViewModel
 import com.yogendra.socialmediamvvm.ui.users.UsersViewModel

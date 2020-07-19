@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
 import com.yogendra.socialmediamvvm.data.Articles
+import com.yogendra.socialmediamvvm.data.Result
 import com.yogendra.socialmediamvvm.di.CoroutineScopeIO
 import com.yogendra.socialmediamvvm.repository.ArticlesRepository
 import com.yogendra.socialmediamvvm.utils.IS_INTERNET_AVAILABLE
@@ -21,6 +22,8 @@ class ArticleViewModel @Inject constructor(
     @CoroutineScopeIO private val ioCoroutineScope: CoroutineScope
 ) : ViewModel() {
 
+    lateinit var refreshArticles: LiveData<Result<List<Articles>>>
+
     val articles: LiveData<PagedList<Articles>>
         get() = _articles
     private var _articles = repository.observePagedSets(
@@ -29,9 +32,7 @@ class ArticleViewModel @Inject constructor(
 
 
     fun refresh() {
-        _articles = repository.observePagedSets(
-            IS_INTERNET_AVAILABLE, ioCoroutineScope
-        )
+        refreshArticles = repository.observeArticles()
     }
 
     /**

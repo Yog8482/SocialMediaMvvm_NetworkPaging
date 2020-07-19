@@ -4,7 +4,7 @@ import javax.inject.Qualifier
 
 @Retention(AnnotationRetention.BINARY)
 @Qualifier
-annotation class socialMediaMvvmAPI
+annotation class SocialMediaMvvmAPI
 
 @Retention(AnnotationRetention.BINARY)
 @Qualifier

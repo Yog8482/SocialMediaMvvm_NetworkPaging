@@ -13,12 +13,13 @@ import androidx.lifecycle.observe
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.android.material.snackbar.Snackbar
 import com.yogendra.socialmediamvvm.R
 import com.yogendra.socialmediamvvm.binding.ArticlesAdapter
 import com.yogendra.socialmediamvvm.databinding.FragmentArticleBinding
 import com.yogendra.socialmediamvvm.di.Injectable
 import com.yogendra.socialmediamvvm.di.injectViewModel
-import com.yogendra.socialmediamvvm.ui.users.UsersFragmentDirections
+import  com.yogendra.socialmediamvvm.data.*
 import javax.inject.Inject
 
 class ArticleFragment : Fragment(), Injectable {
@@ -45,7 +46,7 @@ class ArticleFragment : Fragment(), Injectable {
         // add dividers between RecyclerView's row items
         val decoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
         binding.articleRecyclerList.addItemDecoration(decoration)
-        binding.swipeRefresh.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener { articleViewModel.refresh() })
+        binding.swipeRefresh.setOnRefreshListener({ articleViewModel.refresh() })
         binding.articleRecyclerList.adapter = adapter
         subscribeUi(adapter)
 
@@ -59,6 +60,23 @@ class ArticleFragment : Fragment(), Injectable {
             binding.swipeRefresh.isRefreshing = false
             adapter.submitList(it)
         }
+
+
+        articleViewModel.refreshArticles.observe(viewLifecycleOwner, Observer { result ->
+            when (result.status) {
+                Result.Status.SUCCESS -> {
+                    binding.swipeRefresh.isRefreshing = false
+                    result.data?.let { binding.hasArticles = true }
+                }
+                Result.Status.LOADING -> binding.swipeRefresh.isRefreshing = true
+                Result.Status.ERROR -> {
+                    binding.swipeRefresh.isRefreshing = false
+
+                    Snackbar.make(binding.root, result.message!!, Snackbar.LENGTH_LONG)
+                        .show()
+                }
+            }
+        })
     }
 
 }

@@ -5,30 +5,30 @@ import androidx.lifecycle.distinctUntilChanged
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.yogendra.socialmediamvvm.data.Articles
+import com.yogendra.socialmediamvvm.data.Users
 import com.yogendra.socialmediamvvm.data.resultLiveData
 import com.yogendra.socialmediamvvm.datasource.ArticlesPageDataSourceFactory
+import com.yogendra.socialmediamvvm.datasource.UsersPageDataSourceFactory
 import com.yogendra.socialmediamvvm.datasource.local.dao.ArticlesDao
+import com.yogendra.socialmediamvvm.datasource.local.dao.UsersDao
 import com.yogendra.socialmediamvvm.datasource.remote.ArticlesRemoteDataSource
+import com.yogendra.socialmediamvvm.datasource.remote.UsersRemoteDataSource
 import kotlinx.coroutines.CoroutineScope
 import javax.inject.Inject
-import javax.inject.Singleton
 
-/**
- * Repository module for handling data operations.
- */
-@Singleton
-class ArticlesRepository @Inject constructor(
-    private val dao: ArticlesDao,
-    private val remoteDataSource: ArticlesRemoteDataSource
+class UsersRepository @Inject constructor(
+    private val dao: UsersDao,
+    private val remoteDataSource: UsersRemoteDataSource
 ) {
+
     fun observePagedSets(connectivityAvailable: Boolean, coroutineScope: CoroutineScope) =
         if (connectivityAvailable) observeRemotePagedSets(coroutineScope)
         else observeLocalPagedSets()
 
 
-    private fun observeLocalPagedSets(): LiveData<PagedList<Articles>> {
+    private fun observeLocalPagedSets(): LiveData<PagedList<Users>> {
         val dataSourceFactory =
-            dao.getPagedArticles()
+            dao.getPagedUsers()
 
         return LivePagedListBuilder(
             dataSourceFactory,
@@ -36,22 +36,21 @@ class ArticlesRepository @Inject constructor(
         ).build()
     }
 
-    fun observeArticles() = resultLiveData(
-        databaseQuery = { dao.getArticles() },
-        networkCall = { remoteDataSource.fetchArticles() },
+    fun observeUsers() = resultLiveData(
+        databaseQuery = { dao.getUsers() },
+        networkCall = { remoteDataSource.fetchUsers() },
         saveCallResult = { dao.insertAll(it) })
         .distinctUntilChanged()
 
     private fun observeRemotePagedSets(ioCoroutineScope: CoroutineScope)
-            : LiveData<PagedList<Articles>> {
-        val dataSourceFactory = ArticlesPageDataSourceFactory(
+            : LiveData<PagedList<Users>> {
+        val dataSourceFactory = UsersPageDataSourceFactory(
             remoteDataSource,
             dao, ioCoroutineScope
         )
         return LivePagedListBuilder(
             dataSourceFactory,
-            ArticlesPageDataSourceFactory.pagedListConfig()
+            ArticlesPageDataSourceFactory.pagedListConfig() //Same page config for both
         ).build()
     }
-
 }

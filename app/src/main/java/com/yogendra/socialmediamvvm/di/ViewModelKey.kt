@@ -1,4 +1,4 @@
-package com.elifox.legocatalog.di
+package com.yogendra.socialmediamvvm.di
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

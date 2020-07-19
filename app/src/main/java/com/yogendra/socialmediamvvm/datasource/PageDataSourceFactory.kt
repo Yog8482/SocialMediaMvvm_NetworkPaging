@@ -4,22 +4,27 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import androidx.paging.PagedList
 import com.yogendra.socialmediamvvm.data.Articles
+import com.yogendra.socialmediamvvm.data.Users
 import com.yogendra.socialmediamvvm.datasource.local.dao.ArticlesDao
+import com.yogendra.socialmediamvvm.datasource.local.dao.UsersDao
 import com.yogendra.socialmediamvvm.datasource.remote.ArticlesPageDataSource
 import com.yogendra.socialmediamvvm.datasource.remote.ArticlesRemoteDataSource
+import com.yogendra.socialmediamvvm.datasource.remote.UsersPageDataSource
+import com.yogendra.socialmediamvvm.datasource.remote.UsersRemoteDataSource
 import kotlinx.coroutines.CoroutineScope
 import javax.inject.Inject
 
 class ArticlesPageDataSourceFactory @Inject constructor(
-        private val dataSource: ArticlesRemoteDataSource,
-        private val dao: ArticlesDao,
-        private val scope: CoroutineScope) : DataSource.Factory<Int, Articles>() {
+    private val dataSource: ArticlesRemoteDataSource,
+    private val dao: ArticlesDao,
+    private val scope: CoroutineScope
+) : DataSource.Factory<Int, Articles>() {
 
-    private val liveData = MutableLiveData<ArticlesPageDataSource>()
+    private val articlesliveData = MutableLiveData<ArticlesPageDataSource>()
 
     override fun create(): DataSource<Int, Articles> {
         val source = ArticlesPageDataSource(dataSource, dao, scope)
-        liveData.postValue(source)
+        articlesliveData.postValue(source)
         return source
     }
 
@@ -27,10 +32,26 @@ class ArticlesPageDataSourceFactory @Inject constructor(
         private const val PAGE_SIZE = 10
 
         fun pagedListConfig() = PagedList.Config.Builder()
-                .setInitialLoadSizeHint(PAGE_SIZE)
-                .setPageSize(PAGE_SIZE)
-                .setEnablePlaceholders(true)
-                .build()
+            .setInitialLoadSizeHint(PAGE_SIZE)
+            .setPageSize(PAGE_SIZE)
+            .setEnablePlaceholders(true)
+            .build()
+    }
+
+}
+
+class UsersPageDataSourceFactory @Inject constructor(
+    private val usersRemoteDataSource: UsersRemoteDataSource,
+    private val dao: UsersDao,
+    private val scope: CoroutineScope
+) : DataSource.Factory<Int, Users>() {
+
+    private val usersliveData = MutableLiveData<UsersPageDataSource>()
+
+    override fun create(): DataSource<Int, Users> {
+        val source = UsersPageDataSource(usersRemoteDataSource, dao, scope)
+        usersliveData.postValue(source)
+        return source
     }
 
 }

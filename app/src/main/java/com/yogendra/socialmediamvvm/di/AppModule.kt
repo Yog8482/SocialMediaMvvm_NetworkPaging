@@ -22,7 +22,7 @@ class AppModule {
     @Singleton
     @Provides
     fun provideLegoService(
-        @socialMediaMvvmAPI okhttpClient: OkHttpClient,
+        @SocialMediaMvvmAPI okhttpClient: OkHttpClient,
         converterFactory: GsonConverterFactory
     ) = provideService(okhttpClient, converterFactory, FetchDataService::class.java)
 
