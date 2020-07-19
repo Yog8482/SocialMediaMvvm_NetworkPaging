@@ -7,10 +7,7 @@ import okhttp3.Request
 import okhttp3.Response
 
 
-class NetworkInterceptor  {
-}
-
-internal class NetworkConnectionInterceptor : Interceptor {
+ class NetworkConnectionInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         if (!IS_INTERNET_AVAILABLE) {

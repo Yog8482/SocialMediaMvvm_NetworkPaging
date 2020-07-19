@@ -1,9 +1,17 @@
 package com.yogendra.socialmediamvvm.data
 
+import android.os.Build
+import android.text.format.DateUtils
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import com.yogendra.socialmediamvvm.utils.DATE_FORMAT_12
+import com.yogendra.socialmediamvvm.utils.DATE_FORMAT_20
+import com.yogendra.socialmediamvvm.utils.formatDateFromDateString
+import java.text.SimpleDateFormat
+import java.time.Instant
+import java.util.*
 
 @Entity(tableName = "article")
 data class Articles(
@@ -19,12 +27,16 @@ data class Articles(
 
 ) {
     override fun toString() = "Article Content: $content"
+
+     fun getDateFormatted(): String {
+        return formatDateFromDateString(DATE_FORMAT_12, DATE_FORMAT_20,createdAt)
+    }
 }
 
-@Entity(tableName = "article_media")
+//@Entity(tableName = "article_media")
 data class ArticleMedia(
-    @PrimaryKey
-    @ColumnInfo(name = "id")
+//    @PrimaryKey
+//    @ColumnInfo(name = "id")
     val id: Int,
     val blogId: Int,
     val createdAt: String,
@@ -57,3 +69,4 @@ data class Users(
         "Article user full name: $name $lastname, avatar: $avatar_url, blogId:$blogId"
 
 }
+

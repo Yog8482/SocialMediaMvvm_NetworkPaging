@@ -29,13 +29,14 @@ class UsersFragment : Fragment() {
             textView.text = it
         })
 
-        val directions = UsersFragmentDirections.actionNavigationUsersToNavigationProfile("${usersViewModel.userID}")
-        textView.setOnClickListener { v ->
-            findNavController(root).navigate(
-                directions
-            )
-        }
 
         return root
     }
+
+//    fun navigateToProfile(){
+//        val directions = UsersFragmentDirections.actionNavigationUsersToNavigationProfile("${usersViewModel.userID}")
+//        findNavController(root).navigate(
+//            directions
+//        )
+//    }
 }

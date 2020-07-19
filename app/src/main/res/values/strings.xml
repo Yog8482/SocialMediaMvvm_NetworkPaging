@@ -10,6 +10,7 @@
     <string name="error_connection">No connection</string>
     <string name="error">An error has been occurred</string>
     <string name="empty">No data.</string>
+    <string name="swipe_down_To_refresh">Swipe down to refresh</string>
     <string name="no_internet">No internet connection</string>
     <string name="internet_ok">Internet connected</string>
     <string name="username">User name</string>
@@ -22,8 +23,8 @@ unknown printer took a galley of type and scrambled it to make a type
 specimen book.</string>
     <string name="article_title_ph">Article title goes here can be multiline.</string>
     <string name="url_ph">Article url goes here.</string>
-    <string name="likes_ph">0 Likes</string>
-    <string name="comments_ph">0 Comments</string>
+    <string name="likes_ph">%d Likes</string>
+    <string name="comments_ph">%d Comments</string>
     <string name="users_city">City</string>
     <string name="profile_fullname">Full name</string>
     <string name="profile_about_ph">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</string>

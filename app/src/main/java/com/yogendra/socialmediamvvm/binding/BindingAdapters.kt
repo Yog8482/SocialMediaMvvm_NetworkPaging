@@ -1,14 +1,10 @@
-package com.elifox.legocatalog.binding
+package com.yogendra.socialmediamvvm.binding
 
-import android.text.method.LinkMovementMethod
 import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
-import androidx.core.text.HtmlCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 @BindingAdapter("isGone")
 fun bindIsGone(view: View, isGone: Boolean) {

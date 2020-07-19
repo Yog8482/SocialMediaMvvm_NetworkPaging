@@ -9,8 +9,8 @@ import com.yogendra.socialmediamvvm.data.ArticleMedia
 import com.yogendra.socialmediamvvm.data.Articles
 import com.yogendra.socialmediamvvm.data.Converters
 import com.yogendra.socialmediamvvm.data.Users
-import com.yogendra.socialmediamvvm.database.dao.ArticlesDao
-import com.yogendra.socialmediamvvm.database.dao.UsersDao
+import com.yogendra.socialmediamvvm.datasource.local.dao.ArticlesDao
+import com.yogendra.socialmediamvvm.datasource.local.dao.UsersDao
 import com.yogendra.socialmediamvvm.utils.DATABASE_NAME
 
 /**
