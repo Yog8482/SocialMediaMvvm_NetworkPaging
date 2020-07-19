@@ -51,8 +51,8 @@ class ArticlesAdapter :
 
                 binding.clickListener = View.OnClickListener { v ->
                     when (v) {
-                        binding.articleUrlTv -> navigateToProfile(v, item.id)
-                        else -> openUrl(v.context, item.media.get(0).url)
+                        binding.articleUrlTv -> openUrl(v.context, item.media.get(0).url)
+                        else -> navigateToProfile(v, item.id)
                     }
                 }
                 executePendingBindings()
