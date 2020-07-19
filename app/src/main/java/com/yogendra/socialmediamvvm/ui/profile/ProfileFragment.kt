@@ -10,8 +10,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
 import com.yogendra.socialmediamvvm.R
+import com.yogendra.socialmediamvvm.di.Injectable
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : Fragment(),Injectable {
 
     private lateinit var profileViewModel: ProfileViewModel
 

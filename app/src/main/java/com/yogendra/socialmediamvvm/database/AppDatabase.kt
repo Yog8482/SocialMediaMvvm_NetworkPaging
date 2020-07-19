@@ -18,7 +18,6 @@ import com.yogendra.socialmediamvvm.utils.DATABASE_NAME
  */
 @Database(
     entities = [Articles::class,
-        ArticleMedia::class,
         Users::class],
     version = 1, exportSchema = false
 )

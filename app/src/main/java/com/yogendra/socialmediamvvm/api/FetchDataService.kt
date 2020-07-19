@@ -12,7 +12,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
- * Lego REST API access points
+ * REST API access points
  */
 interface FetchDataService {
 
