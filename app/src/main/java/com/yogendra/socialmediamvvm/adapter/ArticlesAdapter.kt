@@ -1,4 +1,4 @@
-package com.yogendra.socialmediamvvm.binding
+package com.yogendra.socialmediamvvm.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -6,34 +6,38 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.yogendra.socialmediamvvm.data.Articles
-import com.yogendra.socialmediamvvm.databinding.ArticleItemBinding
+import com.yogendra.socialmediamvvm.databinding.ArticleRowBinding
 import com.yogendra.socialmediamvvm.ui.article.ArticleFragmentDirections
+import java.lang.Exception
 
 /**
  * Adapter for the [RecyclerView] in [ArticleFragment].
  */
 class ArticlesAdapter :
-    PagedListAdapter<Articles, ArticlesAdapter.ViewHolder>(ArticlesDiffCallback()) {
+    PagedListAdapter<Articles, ArticlesAdapter.ViewHolder>(
+        ArticlesDiffCallback()
+    ) {
     private lateinit var recyclerView: RecyclerView
-    private lateinit var binding: ArticleItemBinding
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        binding = ArticleItemBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false
+        return ViewHolder(
+            ArticleRowBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
         )
-        return ViewHolder(binding)
 
     }
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        item?.let { holder.bind(it) }
+        item?.let { holder.apply { bind(it) } }
     }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
@@ -42,7 +46,7 @@ class ArticlesAdapter :
     }
 
 
-    class ViewHolder(private val binding: ArticleItemBinding) :
+    class ViewHolder(private val binding: ArticleRowBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Articles) {
@@ -51,11 +55,21 @@ class ArticlesAdapter :
 
                 binding.clickListener = View.OnClickListener { v ->
                     when (v) {
-                        binding.articleUrlTv -> openUrl(v.context, item.media.get(0).url)
-                        else -> navigateToProfile(v, item.id)
+                        binding.articleUrlTv -> openUrl(
+                            v.context,
+                            item.media!![0].url
+                        )
+                        else -> navigateToProfile(
+                            v,
+                            item.id
+                        )
                     }
                 }
-                executePendingBindings()
+                try {
+                    executePendingBindings()
+                }catch (e:Exception){
+                    e.printStackTrace()
+                }
             }
         }
     }
@@ -64,9 +78,9 @@ class ArticlesAdapter :
 }
 
 
-fun navigateToProfile(view: View, articleId: Int) {
+fun navigateToProfile(view: View, articleId: String) {
     val directions =
-        ArticleFragmentDirections.actionNavigationArticleToNavigationProfile("$articleId")
+        ArticleFragmentDirections.actionNavigationArticleToNavigationProfile(articleId,null)
 
     view.findNavController().navigate(
         directions

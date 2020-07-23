@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -34,8 +34,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            />
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/username_tv"
@@ -50,7 +49,7 @@
             android:onClick="@{clickListener}"
             android:text="@{articleModel.user.get(0).name}"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/last_updated_tv"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/article_image_iv"
@@ -62,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:fontFamily="sans-serif-light"
+            android:fontFamily="sans-serif"
             android:hint="@string/user_designation"
             android:onClick="@{clickListener}"
             android:text="@{articleModel.user.get(0).designation}"
@@ -92,12 +91,13 @@
         <ImageView
             android:id="@+id/article_media_iv"
             android:layout_width="0dp"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:background="@color/clouds"
-            app:imageFromUrl="@{articleModel.media.get(0).image_url}"
-            app:isGone="@{articleModel.media.get(0).image_url==null||!(articleModel.media.get(0).image_url.length()>0)}"
+            android:scaleType="fitXY"
+            app:imageFromUrl='@{!articleModel.media.isEmpty()? articleModel.media[0].image_url:""}'
+            app:isGone="@{articleModel.media.isEmpty()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/article_image_iv"
             app:layout_constraintTop_toBottomOf="@+id/article_image_iv" />
@@ -109,10 +109,11 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:text="@{articleModel.content}"
             android:hint="@string/content_placeholder"
+            android:text="@{articleModel.content}"
+            android:textSize="16sp"
+
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/article_media_iv" />
 
@@ -120,13 +121,15 @@
             android:id="@+id/article_title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:fontFamily="@font/roboto"
-            android:text="@{articleModel.media.get(0).title}"
-
             android:hint="@string/article_title_ph"
+            android:text='@{!articleModel.media.isEmpty()? articleModel.media.get(0).title:""}'
+            android:textSize="18sp"
+
             android:textStyle="bold"
+            app:isGone="@{articleModel.media.isEmpty()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/article_content_tv"
@@ -136,28 +139,33 @@
             android:id="@+id/article_url_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:clickable="true"
-            android:text="@{articleModel.media.get(0).url}"
-            android:onClick="@{clickListener}"
+            android:focusable="true"
             android:hint="@string/url_ph"
+            android:onClick="@{clickListener}"
+            android:text='@{!articleModel.media.isEmpty()?articleModel.media.get(0).url:""}'
             android:textColor="@color/color_url"
+
+            android:textSize="18sp"
+            app:isGone="@{articleModel.media.isEmpty()||articleModel.media.get(0).url==null}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/article_title_tv"
-            app:layout_constraintTop_toBottomOf="@+id/article_title_tv"
-            android:focusable="true" />
+            app:layout_constraintTop_toBottomOf="@+id/article_title_tv" />
 
         <TextView
             android:id="@+id/likes_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:fontFamily="sans-serif-medium"
-            android:text= "@{String.format(@string/likes_ph, articleModel.likes)}"
             android:hint="@string/likes_ph"
+            android:text="@{String.format(@string/likes_ph, articleModel.formattedlikes)}"
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="@+id/comments_tv"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/article_url_tv"
@@ -169,8 +177,10 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:fontFamily="sans-serif-medium"
-            android:text= "@{String.format(@string/comments_ph, articleModel.comments)}"
             android:hint="@string/comments_ph"
+            android:text="@{String.format(@string/comments_ph, articleModel.formattedComments)}"
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/likes_tv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"

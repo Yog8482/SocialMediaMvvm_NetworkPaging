@@ -22,7 +22,7 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(UsersViewModel::class)
     abstract fun bindUsersViewModel(viewModel: UsersViewModel): ViewModel
-
+    
     @Binds
     @IntoMap
     @ViewModelKey(ProfileViewModel::class)

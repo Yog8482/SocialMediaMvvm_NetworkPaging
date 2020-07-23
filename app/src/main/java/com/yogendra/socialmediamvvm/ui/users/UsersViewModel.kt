@@ -10,20 +10,17 @@ import com.yogendra.socialmediamvvm.data.Users
 import com.yogendra.socialmediamvvm.di.CoroutineScopeIO
 import com.yogendra.socialmediamvvm.repository.ArticlesRepository
 import com.yogendra.socialmediamvvm.repository.UsersRepository
-import com.yogendra.socialmediamvvm.ui.article.ArticleFragment
 import com.yogendra.socialmediamvvm.utils.IS_INTERNET_AVAILABLE
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.cancel
 import javax.inject.Inject
 
-/**
- * The ViewModel for [UsersFragment].
- */
 class UsersViewModel @Inject constructor(
     private val repository: UsersRepository,
     @CoroutineScopeIO private val ioCoroutineScope: CoroutineScope
 ) : ViewModel() {
 
-    lateinit var refreshUsers:LiveData<Result<List<Users>>>
+
     val users: LiveData<PagedList<Users>>
         get() = _users
     private var _users = repository.observePagedSets(
@@ -31,8 +28,14 @@ class UsersViewModel @Inject constructor(
     )
 
 
-    fun refresh() {
-         refreshUsers= repository.observeUsers( )
-    }
+    fun refresh() = repository.observeUsers()
 
+
+    /**
+     * Cancel all coroutines when the ViewModel is cleared.
+     */
+    override fun onCleared() {
+        super.onCleared()
+        ioCoroutineScope.cancel()
+    }
 }

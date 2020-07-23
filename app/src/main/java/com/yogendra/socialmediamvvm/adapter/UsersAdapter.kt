@@ -1,4 +1,4 @@
-package com.yogendra.socialmediamvvm.binding
+package com.yogendra.socialmediamvvm.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +11,9 @@ import com.yogendra.socialmediamvvm.data.Users
 import com.yogendra.socialmediamvvm.databinding.UserItemBinding
 import com.yogendra.socialmediamvvm.ui.users.UsersFragmentDirections
 
-class UsersAdapter : PagedListAdapter<Users, UsersAdapter.ViewHolder>(UsersDiffCallback()) {
+class UsersAdapter : PagedListAdapter<Users, UsersAdapter.ViewHolder>(
+    UsersDiffCallback()
+) {
     private lateinit var recyclerView: RecyclerView
     private lateinit var binding: UserItemBinding
 
@@ -19,7 +21,9 @@ class UsersAdapter : PagedListAdapter<Users, UsersAdapter.ViewHolder>(UsersDiffC
         binding = UserItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
-        return ViewHolder(binding)
+        return ViewHolder(
+            binding
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -39,8 +43,11 @@ class UsersAdapter : PagedListAdapter<Users, UsersAdapter.ViewHolder>(UsersDiffC
             binding.apply {
                 binding.userModel = item
 
-                binding.clickListener = View.OnClickListener { v ->
-                    navigateUsersToProfile(v, item.id)
+                binding.userClickListener = View.OnClickListener { v ->
+                    navigateUsersToProfile(
+                        v,
+                        item.id
+                    )
                 }
                 executePendingBindings()
             }
@@ -49,9 +56,9 @@ class UsersAdapter : PagedListAdapter<Users, UsersAdapter.ViewHolder>(UsersDiffC
 
 }
 
-fun navigateUsersToProfile(view: View, userId: Int) {
+fun navigateUsersToProfile(view: View, userId: String) {
     val directions =
-        UsersFragmentDirections.actionNavigationUsersToNavigationProfile("$userId")
+        UsersFragmentDirections.actionNavigationUsersToNavigationProfile(null,userId)
 
     view.findNavController().navigate(
         directions

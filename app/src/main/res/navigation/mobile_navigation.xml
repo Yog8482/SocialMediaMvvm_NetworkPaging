@@ -17,10 +17,6 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
-
-        <argument
-            android:name="article_id"
-            app:argType="string" />
     </fragment>
 
     <fragment
@@ -42,8 +38,18 @@
         android:name="com.yogendra.socialmediamvvm.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile">
+
+        <argument
+            android:name="article_id"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null"/>
+
         <argument
             android:name="user_id"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null"
+            />
     </fragment>
 </navigation>

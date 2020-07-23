@@ -2,11 +2,9 @@ package com.yogendra.socialmediamvvm.datasource.remote
 
 import android.util.Log
 import androidx.paging.PageKeyedDataSource
-import com.yogendra.socialmediamvvm.data.Articles
 import com.yogendra.socialmediamvvm.data.Result
 import com.yogendra.socialmediamvvm.data.Users
-import com.yogendra.socialmediamvvm.datasource.local.dao.ArticlesDao
-import com.yogendra.socialmediamvvm.datasource.local.dao.UsersDao
+import com.yogendra.socialmediamvvm.datasource.local.UsersDao
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch

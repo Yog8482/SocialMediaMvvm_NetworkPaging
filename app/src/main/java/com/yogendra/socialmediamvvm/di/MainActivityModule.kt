@@ -1,6 +1,5 @@
 package com.yogendra.socialmediamvvm.di
 
-
 import com.yogendra.socialmediamvvm.ui.main.MainActivity
 
 import dagger.Module

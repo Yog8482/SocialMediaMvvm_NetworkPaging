@@ -13,9 +13,10 @@ import okhttp3.Response
         if (!IS_INTERNET_AVAILABLE) {
             throw NoConnectivityException()
             // Throwing our custom exception 'NoConnectivityException'
+        }else {
+//            val builder: Request.Builder = chain.request().newBuilder()
+            return chain.proceed(chain.request())
         }
-        val builder: Request.Builder = chain.request().newBuilder()
-        return chain.proceed(builder.build())
     }
 
 

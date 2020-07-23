@@ -5,13 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.yogendra.socialmediamvvm.data.ArticleMedia
 import com.yogendra.socialmediamvvm.data.Articles
-import com.yogendra.socialmediamvvm.data.Converters
 import com.yogendra.socialmediamvvm.data.Users
-import com.yogendra.socialmediamvvm.datasource.local.dao.ArticlesDao
-import com.yogendra.socialmediamvvm.datasource.local.dao.UsersDao
+import com.yogendra.socialmediamvvm.datasource.local.ArticlesDao
 import com.yogendra.socialmediamvvm.utils.DATABASE_NAME
+import com.yogendra.socialmediamvvm.data.*
+import com.yogendra.socialmediamvvm.datasource.local.UsersDao
 
 /**
  * The Room database for this app
@@ -45,13 +44,8 @@ abstract class AppDatabase : RoomDatabase() {
         // https://medium.com/google-developers/7-pro-tips-for-room-fbadea4bfbd1#4785
         private fun buildDatabase(context: Context): AppDatabase {
             return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
-                /* .addCallback(object : RoomDatabase.Callback() {
-                     override fun onCreate(db: SupportSQLiteDatabase) {
-                         super.onCreate(db)
-                         val request = OneTimeWorkRequestBuilder<SeedDatabaseWorker>().build()
-                         WorkManager.getInstance(context).enqueue(request)
-                     }
-                 })*/
+                 .addCallback(object : RoomDatabase.Callback() {
+                 })
                 .build()
         }
     }

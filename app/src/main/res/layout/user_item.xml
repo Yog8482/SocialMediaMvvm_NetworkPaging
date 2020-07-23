@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -8,7 +6,7 @@
     <data>
 
         <variable
-            name="clickListener"
+            name="userClickListener"
             type="android.view.View.OnClickListener" />
 
         <variable
@@ -23,9 +21,12 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:clipToPadding="false"
-        android:onClick="@{clickListener}"
+        android:onClick="@{userClickListener}"
         app:cardCornerRadius="6dp"
-        app:contentPadding="8dp"
+        app:contentPadding="16dp"
+        app:cardElevation="16dp"
+        app:cardMaxElevation="24dp"
+        android:backgroundTint="@color/clouds"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +51,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0"
-                tools:srcCompat="@tools:sample/avatars" />
+                 />
 
             <TextView
                 android:id="@+id/users_uname_tv"
@@ -59,6 +60,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="0"
+                android:textSize="18sp"
                 android:fontFamily="sans-serif-medium"
                 android:text="@{userModel.name}"
 
@@ -73,11 +75,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:fontFamily="sans-serif-light"
+                android:fontFamily="sans-serif"
                 android:hint="@string/user_designation"
                 android:text="@{userModel.designation}"
 
-                android:textSize="12sp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/users_uname_tv"
@@ -87,11 +89,11 @@
                 android:id="@+id/users_city_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-light"
+                android:fontFamily="sans-serif"
                 android:hint="@string/users_city"
                 android:text="@{userModel.city}"
 
-                android:textSize="12sp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"

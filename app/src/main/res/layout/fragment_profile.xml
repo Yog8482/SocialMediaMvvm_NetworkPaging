@@ -3,14 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+
+    <data>
+
+        <variable
+            name="hasData"
+            type="Boolean" />
+
+        <variable
+            name="profileModel"
+            type="com.yogendra.socialmediamvvm.data.Users" />
+
+    </data>
+
     <androidx.core.widget.NestedScrollView
+
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
 
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="visible"
+            app:isGone="@{!hasData}"
             tools:context=".ui.profile.ProfileFragment">
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -24,6 +41,7 @@
                 android:contentDescription="@string/profile_photo_desc"
                 android:src="@drawable/ic_baseline_person_24"
                 app:civ_border_width="0.3dp"
+                app:imageFromUrl="@{profileModel.avatar_url}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -31,30 +49,18 @@
                 app:layout_constraintVertical_bias="0.30"
                 tools:src="@tools:sample/avatars" />
 
-            <TextView
-                android:id="@+id/text_profile_empty"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:textAlignment="center"
-                android:textSize="20sp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/profile_fullname_tv"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="@string/profile_fullname"
+                android:gravity="center"
+                android:hint="@string/profile_fullname"
+                android:text="@{profileModel.name}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -62,13 +68,15 @@
 
             <TextView
                 android:id="@+id/profile_designation_tv"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="sans-serif-light"
-                android:text="@string/user_designation"
+                android:gravity="center"
+                android:hint="@string/user_designation"
+                android:text="@{profileModel.designation}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -76,13 +84,15 @@
 
             <TextView
                 android:id="@+id/profile_city_tv"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="sans-serif-light"
-                android:text="@string/users_city"
+                android:gravity="center"
+                android:hint="@string/users_city"
+                android:text="@{profileModel.city}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -97,7 +107,8 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="sans-serif"
-                android:text="@string/profile_about_ph"
+                android:hint="@string/profile_about_ph"
+                android:text="@{profileModel.about}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -106,6 +117,25 @@
                 app:layout_constraintTop_toBottomOf="@+id/profile_city_tv"
                 app:layout_constraintVertical_bias="0.01999998" />
 
+            <TextView
+                android:id="@+id/text_profile_empty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/no_profile_found"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                app:isGone="@{hasData}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </androidx.core.widget.NestedScrollView>
+
+
 </layout>

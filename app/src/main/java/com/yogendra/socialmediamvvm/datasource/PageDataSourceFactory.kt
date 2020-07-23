@@ -1,12 +1,16 @@
 package com.yogendra.socialmediamvvm.datasource
 
+//import com.yogendra.socialmediamvvm.datasource.local.dao.ArticlesDao
+//import com.yogendra.socialmediamvvm.datasource.local.dao.UsersDao
+//import com.yogendra.socialmediamvvm.datasource.remote.UsersPageDataSource
+//import com.yogendra.socialmediamvvm.datasource.remote.UsersRemoteDataSource
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import androidx.paging.PagedList
 import com.yogendra.socialmediamvvm.data.Articles
 import com.yogendra.socialmediamvvm.data.Users
-import com.yogendra.socialmediamvvm.datasource.local.dao.ArticlesDao
-import com.yogendra.socialmediamvvm.datasource.local.dao.UsersDao
+import com.yogendra.socialmediamvvm.datasource.local.ArticlesDao
+import com.yogendra.socialmediamvvm.datasource.local.UsersDao
 import com.yogendra.socialmediamvvm.datasource.remote.ArticlesPageDataSource
 import com.yogendra.socialmediamvvm.datasource.remote.ArticlesRemoteDataSource
 import com.yogendra.socialmediamvvm.datasource.remote.UsersPageDataSource
@@ -21,6 +25,10 @@ class ArticlesPageDataSourceFactory @Inject constructor(
 ) : DataSource.Factory<Int, Articles>() {
 
     private val articlesliveData = MutableLiveData<ArticlesPageDataSource>()
+
+    fun getMutableLiveData(): MutableLiveData<ArticlesPageDataSource> {
+        return articlesliveData
+    }
 
     override fun create(): DataSource<Int, Articles> {
         val source = ArticlesPageDataSource(dataSource, dao, scope)
@@ -54,4 +62,13 @@ class UsersPageDataSourceFactory @Inject constructor(
         return source
     }
 
+    companion object {
+        private const val PAGE_SIZE = 10
+
+        fun pagedListConfig() = PagedList.Config.Builder()
+            .setInitialLoadSizeHint(PAGE_SIZE)
+            .setPageSize(PAGE_SIZE)
+            .setEnablePlaceholders(true)
+            .build()
+    }
 }

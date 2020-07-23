@@ -18,14 +18,14 @@ interface FetchDataService {
 
     @GET(DEFAULT_URL_PARAMETRES_ARTICLE)
     suspend fun getArticles(
-        @Query("page") page: Int? = null,
-        @Query("limit") pageSize: Int? = null
+        @Query("page") pge: Int,
+        @Query("limit") pageSize: Int
     ): Response<List<Articles>>
 
     @GET(URL_PARAMETRES_USERS)
     suspend fun getUsers(
-        @Query("page") page: Int? = null,
-        @Query("limit") pageSize: Int? = null
+        @Query("page") pge: Int,
+        @Query("limit") pageSize: Int
     ): Response<List<Users>>
 
 

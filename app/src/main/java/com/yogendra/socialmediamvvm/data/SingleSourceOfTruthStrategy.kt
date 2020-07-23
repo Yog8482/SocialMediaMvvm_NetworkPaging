@@ -31,3 +31,13 @@ fun <T, A> resultLiveData(
             emitSource(source)
         }
     }
+
+fun <T> resultLocalLiveData(
+    databaseQuery: () -> LiveData<T>
+): LiveData<Result<T>> =
+    liveData(Dispatchers.IO) {
+        emit(Result.loading<T>())
+        val source = databaseQuery.invoke().map { Result.success(it) }
+        emitSource(source)
+    }
+

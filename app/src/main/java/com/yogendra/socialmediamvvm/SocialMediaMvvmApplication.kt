@@ -9,7 +9,7 @@ import dagger.android.HasAndroidInjector
 import javax.inject.Inject
 
 @Suppress("UNCHECKED_CAST")
-class SocialMediaMvvmApp: Application(), HasAndroidInjector {
+class SocialMediaMvvmApplication : Application(), HasAndroidInjector {
     //HasActivityInjector
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
@@ -20,7 +20,6 @@ class SocialMediaMvvmApp: Application(), HasAndroidInjector {
         AppInjector.init(this)
     }
 
-    //    override fun activityInjector() = dispatchingAndroidInjector
     override fun androidInjector(): AndroidInjector<Any> =
         dispatchingAndroidInjector as AndroidInjector<Any>
 

@@ -1,11 +1,14 @@
 package com.yogendra.socialmediamvvm.di
 
 import com.google.gson.Gson
+import com.yogendra.socialmediamvvm.BuildConfig
 import com.yogendra.socialmediamvvm.api.NetworkConnectionInterceptor
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
-
+import okhttp3.logging.HttpLoggingInterceptor
+import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
+import okhttp3.logging.HttpLoggingInterceptor.Level.NONE
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
@@ -16,10 +19,17 @@ import javax.inject.Singleton
 class CoreDataModule {
 
     @Provides
-    fun provideOkHttpClient(interceptor: NetworkConnectionInterceptor): OkHttpClient =
-            OkHttpClient.Builder()
-                    .addNetworkInterceptor(interceptor)
-                    .build()
+    fun provideOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient =
+        OkHttpClient.Builder().addInterceptor(interceptor)
+            .addNetworkInterceptor(NetworkConnectionInterceptor())
+            .build()
+
+
+    @Provides
+    fun provideLoggingInterceptor() =
+        HttpLoggingInterceptor().apply { level = if (BuildConfig.DEBUG) BODY else NONE }
+
+
 
     @Provides
     @Singleton

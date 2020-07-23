@@ -21,13 +21,14 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            shrinkResources true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
 
-    buildFeatures{
+    buildFeatures {
         dataBinding = true
         // for view binding :
         // viewBinding = true
@@ -78,10 +79,7 @@ dependencies {
     //Lifcycle
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-
-
-//    implementation "androidx.work:work-runtime-ktx:$workmanager_version"
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0-alpha06'
 
     //Material
     implementation "com.google.android.material:material:$material_version"
@@ -106,30 +104,40 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
-
     //Room
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
 
     //Glide
-    implementation "com.github.bumptech.glide:glide:$glide_version"
+    implementation ("com.github.bumptech.glide:glide:$glide_version@aar") {
+        transitive = true
+    }
+
+    implementation ("com.github.bumptech.glide:glide:$glide_version") {
+        exclude group: "com.android.support"
+    }
     kapt "com.github.bumptech.glide:compiler:$glide_version"
+    kapt "com.github.bumptech.glide:annotations:$glide_version"
+    annotationProcessor 'androidx.annotation:annotation:1.1.0'
 
     //Network stuff
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.okhttp3:okhttp:$okhttp3_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3_version"
+
     implementation "com.google.code.gson:gson:$gsonVersion"
 
 
     //Dagger stuff
     implementation "com.google.dagger:dagger:$dagger_version"
     implementation "com.google.dagger:dagger-android-support:$dagger_version"
-    implementation "com.google.dagger:dagger-android:$dagger_version"
     annotationProcessor "com.google.dagger:dagger-android-processor:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
-//    kaptTest "com.google.dagger:dagger-compiler:$dagger_version"
+    kaptTest "com.google.dagger:dagger-compiler:$dagger_version"
 
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

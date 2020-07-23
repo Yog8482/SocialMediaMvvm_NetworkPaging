@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
-import com.yogendra.socialmediamvvm.SocialMediaMvvmApp
+import com.yogendra.socialmediamvvm.SocialMediaMvvmApplication
 import dagger.android.AndroidInjection
 import dagger.android.HasAndroidInjector
 import dagger.android.support.AndroidSupportInjection
@@ -16,7 +16,7 @@ import dagger.android.support.AndroidSupportInjection
  */
 object AppInjector {
 
-    fun init(application: SocialMediaMvvmApp) {
+    fun init(application: SocialMediaMvvmApplication) {
         DaggerAppComponent.builder().application(application)
             .build().inject(application)
         application

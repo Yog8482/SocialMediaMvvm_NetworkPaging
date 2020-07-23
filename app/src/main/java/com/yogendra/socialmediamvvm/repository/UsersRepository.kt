@@ -4,18 +4,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.distinctUntilChanged
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.yogendra.socialmediamvvm.data.Articles
 import com.yogendra.socialmediamvvm.data.Users
 import com.yogendra.socialmediamvvm.data.resultLiveData
-import com.yogendra.socialmediamvvm.datasource.ArticlesPageDataSourceFactory
+import com.yogendra.socialmediamvvm.data.resultLocalLiveData
 import com.yogendra.socialmediamvvm.datasource.UsersPageDataSourceFactory
-import com.yogendra.socialmediamvvm.datasource.local.dao.ArticlesDao
-import com.yogendra.socialmediamvvm.datasource.local.dao.UsersDao
-import com.yogendra.socialmediamvvm.datasource.remote.ArticlesRemoteDataSource
+import com.yogendra.socialmediamvvm.datasource.local.UsersDao
 import com.yogendra.socialmediamvvm.datasource.remote.UsersRemoteDataSource
 import kotlinx.coroutines.CoroutineScope
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class UsersRepository @Inject constructor(
     private val dao: UsersDao,
     private val remoteDataSource: UsersRemoteDataSource
@@ -32,7 +31,7 @@ class UsersRepository @Inject constructor(
 
         return LivePagedListBuilder(
             dataSourceFactory,
-            ArticlesPageDataSourceFactory.pagedListConfig()
+            UsersPageDataSourceFactory.pagedListConfig()
         ).build()
     }
 
@@ -40,6 +39,14 @@ class UsersRepository @Inject constructor(
         databaseQuery = { dao.getUsers() },
         networkCall = { remoteDataSource.fetchUsers() },
         saveCallResult = { dao.insertAll(it) })
+        .distinctUntilChanged()
+
+    fun observeArticleProfile(articleId: String) = resultLocalLiveData(
+        databaseQuery = { dao.getArticleUserProfile(articleId) })
+        .distinctUntilChanged()
+
+    fun observeUserProfile(userId: String) = resultLocalLiveData(
+        databaseQuery = { dao.getUserProfile(userId) })
         .distinctUntilChanged()
 
     private fun observeRemotePagedSets(ioCoroutineScope: CoroutineScope)
@@ -50,7 +57,10 @@ class UsersRepository @Inject constructor(
         )
         return LivePagedListBuilder(
             dataSourceFactory,
-            ArticlesPageDataSourceFactory.pagedListConfig() //Same page config for both
+            UsersPageDataSourceFactory.pagedListConfig() //Same page config for both
         ).build()
     }
+
+
+
 }

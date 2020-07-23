@@ -4,12 +4,14 @@
     <color name="colorPrimaryDark">#0077C2</color>
     <color name="colorAccent">@color/tab_users</color>
 
+
+
     <!-- Splash screen -->
 
     <color name="splash_top">#26A0DA</color>
+    <color name="color_url">#1F75FE</color>
 
     <color name="splash_bottom">#1D2B64</color>
-    <color name="color_url">#1F75FE</color>
 
     <!-- Recycle view -->
 

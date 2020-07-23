@@ -2,6 +2,7 @@ package com.yogendra.socialmediamvvm.api
 
 import retrofit2.Response
 import com.yogendra.socialmediamvvm.data.*
+import com.yogendra.socialmediamvvm.utils.NoConnectivityException
 
 /**
  * Abstract Base Data source class with error handling
@@ -22,7 +23,10 @@ abstract class BaseDataSource {
     }
 
     private fun <T> error(message: String): Result<T> {
-        return Result.error("Network call has failed for a following reason: $message")
+        if (message.contains("Unable to resolve host \"5e99a9b1bc561b0016af3540.mockapi.io\": No address associated with hostname")) {
+            return Result.error(NoConnectivityException().message.toString())
+        }
+        return Result.error(message)
     }
 
 }

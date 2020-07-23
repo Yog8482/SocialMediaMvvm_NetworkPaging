@@ -1,7 +1,7 @@
 package com.yogendra.socialmediamvvm.di
 
 import android.app.Application
-import com.yogendra.socialmediamvvm.SocialMediaMvvmApp
+import com.yogendra.socialmediamvvm.SocialMediaMvvmApplication
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -23,5 +23,5 @@ interface AppComponent {
         fun build(): AppComponent
     }
 
-    fun inject(application: SocialMediaMvvmApp)
+    fun inject(application: SocialMediaMvvmApplication)
 }
